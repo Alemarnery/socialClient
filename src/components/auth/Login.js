@@ -59,6 +59,28 @@ const Login = () => {
       });
   };
 
+  const facebookLogin = () => {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        console.log(`userLogin from facebook!!!`);
+        /** @type {firebase.auth.OAuthCredential} */
+        const credential = result.credential;
+
+        // The signed-in user info.
+        const user = result.user;
+
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const accessToken = credential.accessToken;
+        // ...
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const signOut = () => {
     firebase
       .auth()
@@ -73,17 +95,13 @@ const Login = () => {
 
   return (
     <div>
-      <button id="googleLogin" onClick={googleLogin}>
-        Google
-      </button>
+      <button onClick={googleLogin}>Google</button>
 
-      <button id="emailLinkLogin" onClick={emailLogin}>
-        Email Link
-      </button>
+      <button onClick={emailLogin}>Email Link</button>
 
-      <button id="facebookLogin">Facebook</button>
+      <button onClick={facebookLogin}>Facebook</button>
 
-      <button id="twitterLogin">Twitter</button>
+      <button>Twitter</button>
 
       <button onClick={signOut}>signOut</button>
     </div>
