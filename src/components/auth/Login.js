@@ -81,6 +81,40 @@ const Login = () => {
       });
   };
 
+  const twitterLogin = () => {
+    const provider = new firebase.auth.TwitterAuthProvider();
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        console.log(`twitter signIn ${result}  `);
+        /** @type {firebase.auth.OAuthCredential} */
+        const credential = result.credential;
+
+        // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
+        // You can use these server side with your app's credentials to access the Twitter API.
+        const token = credential.accessToken;
+        const secret = credential.secret;
+
+        // The signed-in user info.
+        const user = result.user;
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        const credential = error.credential;
+        // ...
+      });
+
+    console.log("twitter");
+  };
+
   const signOut = () => {
     firebase
       .auth()
@@ -101,7 +135,7 @@ const Login = () => {
 
       <button onClick={facebookLogin}>Facebook</button>
 
-      <button>Twitter</button>
+      <button onClick={twitterLogin}>Twitter</button>
 
       <button onClick={signOut}>signOut</button>
     </div>
