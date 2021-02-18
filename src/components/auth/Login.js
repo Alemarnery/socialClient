@@ -1,8 +1,20 @@
 import React from "react";
 import Header from "./Header";
 import SocialLogin from "./SocialLogin";
+import Button from "./Button";
 
 const Login = () => {
+  const renderButton = () => {
+    return `<a href="/register">
+              <i class="user icon"></i>
+              Don't have an account?
+            </a>
+            <a href="/forgot" class="right floated">
+                <i class="info icon"></i>
+                Forgot your password?
+            </a>`;
+  };
+
   return (
     <React.Fragment>
       <Header title="Sign In" />
@@ -31,7 +43,7 @@ const Login = () => {
         </form>
       </div>
 
-      <div className="extra content">BUTTONS de LOGIN</div>
+      <Button button={renderButton} />
     </React.Fragment>
   );
 };
