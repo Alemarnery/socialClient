@@ -1,5 +1,6 @@
 import React from "react";
 import firebase from "firebase/app";
+import Header from "./Header";
 import "firebase/auth";
 
 const Login = () => {
@@ -111,8 +112,6 @@ const Login = () => {
         const credential = error.credential;
         // ...
       });
-
-    console.log("twitter");
   };
 
   const signOut = () => {
@@ -129,15 +128,56 @@ const Login = () => {
 
   return (
     <div>
-      <button onClick={googleLogin}>Google</button>
-
-      <button onClick={emailLogin}>Email Link</button>
-
-      <button onClick={facebookLogin}>Facebook</button>
-
-      <button onClick={twitterLogin}>Twitter</button>
-
       <button onClick={signOut}>signOut</button>
+
+      <Header title="Sign In" />
+
+      <div className="content">
+        <form className="ui form error" method="POST" action="login">
+          <div className="field center aligned">
+            <button className="ui negative basic button" onClick={googleLogin}>
+              <i className="google  icon"></i>
+              Google
+            </button>
+
+            <button className="ui secondary basic button" onClick={emailLogin}>
+              <i className="envelope outline icon"></i>
+              Email Link
+            </button>
+
+            <button className="ui facebook button" onClick={facebookLogin}>
+              <i className="facebook icon"></i>
+              Facebook
+            </button>
+
+            <button className="ui twitter button" onClick={twitterLogin}>
+              <i className="facebook icon"></i>
+              Twitter
+            </button>
+          </div>
+
+          <div className="required field">
+            <label>Email</label>
+            <input type="text" name="email" placeholder="email" />
+          </div>
+
+          <div className="required field">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              type="password"
+            />
+          </div>
+
+          <button className="ui button" type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
+
+      <div className="extra content">BUTTONS de LOGIN</div>
     </div>
   );
 };
