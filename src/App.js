@@ -1,8 +1,8 @@
 import { Router, Route, Switch } from "react-router-dom";
 import history from "./history";
-import Login from "./components/auth/Login";
-import Forgot from "./components/auth/Forgot";
-import Register from "./components/auth/Register";
+import Login from "./Pages/auth/Login ";
+import Forgot from "./Pages/auth/Forgot";
+import Register from "./Pages/auth/Register";
 
 const App = () => {
   return (

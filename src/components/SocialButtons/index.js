@@ -2,7 +2,7 @@ import React from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 
-const SocialLogin = () => {
+const SocialButtons = () => {
   function googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -152,4 +152,4 @@ const SocialLogin = () => {
   );
 };
 
-export default SocialLogin;
+export default SocialButtons;
