@@ -7,29 +7,33 @@ const Register = () => {
       title="Register"
       links={
         <a href="/login">
-          <i class="user icon"></i> Already have an account? Sign In
+          <i className="user icon"></i> Already have an account? Sign In
         </a>
       }
     >
-      <form class="ui equal width form error" method="POST" action="register">
-        <div class="fields">
-          <div class="required field">
+      <form
+        className="ui equal width form error"
+        method="POST"
+        action="register"
+      >
+        <div className="fields">
+          <div className="required field">
             <label>Name</label>
             <input type="text" name="name" placeholder="First Name" />
           </div>
 
-          <div class="field">
+          <div className="field">
             <label>Last Name</label>
             <input type="text" name="lastName" placeholder="Last Name" />
           </div>
         </div>
 
-        <div class="required field">
+        <div className="required field">
           <label>Email</label>
           <input type="text" name="email" placeholder="Email" />
         </div>
 
-        <div class="required field">
+        <div className="required field">
           <label>Password</label>
           <input
             type="password"
@@ -39,7 +43,7 @@ const Register = () => {
           />
         </div>
 
-        <div class="required field">
+        <div className="required field">
           <label>Date of Birth</label>
           <input
             type="date"
@@ -49,7 +53,7 @@ const Register = () => {
           />
         </div>
 
-        <button class="ui button" type="submit">
+        <button className="ui button" type="submit">
           Submit
         </button>
       </form>
