@@ -4,12 +4,44 @@ import SocialButtons from "../../components/SocialButtons";
 import Form from "../../components/Form";
 import ErrorMessage from "../../components/Form/ErrorMessage";
 
+const loginFields = [
+  {
+    title:"email",
+    name:'email',
+    placeholder: 'email',
+    validation = {
+      required: "Email is required",
+      pattern: {
+        value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+        message: "Must be a valid email",
+      }
+    }
+  },
+  {
+    type:"password",
+    name:"password",
+    placeholder:"password",
+    validation = {
+      required: "required",
+      minLength: {
+      value: 4,
+      message: "Password must be between 4 and 20 caracters",
+    },
+    maxLength: {
+      value: 20,
+      message: "Password must be between 4 and 20 caracters",
+      },
+    }      
+  }
+]
+
 const Login = () => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => console.log(data);
 
   return (
     <Form
+      fields={loginFields}
       title="Sign In"
       links={
         <>
@@ -38,7 +70,7 @@ const Login = () => {
               },
             })}
           />
-          {errors.email ? <ErrorMessage error={errors.email.message} /> : " "}
+          {errors.email && <ErrorMessage error={errors.email.message} />}
         </div>
 
         <div className="required field">
@@ -47,7 +79,6 @@ const Login = () => {
             type="password"
             name="password"
             placeholder="password"
-            type="password"
             ref={register({
               required: "required",
               minLength: {
@@ -60,7 +91,7 @@ const Login = () => {
               },
             })}
           />
-          <p>{errors.password?.message}</p>
+          {errors.password && <ErrorMessage error={errors.email.message} />}
         </div>
 
         <button className="ui button" type="submit">
