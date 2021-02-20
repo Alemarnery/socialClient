@@ -3,26 +3,30 @@ import { useForm } from "react-hook-form";
 import ErrorMessage from "../../components/Form/ErrorMessage";
 import inputFields from "./fields.json";
 
-const formLogin = () => {
+const FormLogin = () => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => console.log(data);
 
-  console.log(inputFields);
+  const renderedInput = inputFields.fields.map((input) => {
+    const { name, placeholder, title, type } = input;
+    return (
+      <div className="required field">
+        <label>{title}</label>
+        <input
+          name={name}
+          placeholder={placeholder}
+          type={type}
+          ref={register(input.validation)}
+        />
+        {console.log(errors)}
+        {/* {errors.name && <ErrorMessage error={errors.name.message} />} */}
+      </div>
+    );
+  });
 
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
-      <div className="required field">
-        <label>Email</label>
-        <input />
-        {errors.email && <ErrorMessage error={errors.email.message} />}
-      </div>
-
-      <div className="required field">
-        <label>Password</label>
-        <input />
-        {errors.password && <ErrorMessage error={errors.email.message} />}
-      </div>
-
+      {renderedInput}
       <button className="ui button" type="submit">
         Submit
       </button>
@@ -30,4 +34,4 @@ const formLogin = () => {
   );
 };
 
-export default formLogin;
+export default FormLogin;

@@ -6,7 +6,6 @@ import FormLogin from "./FormLogin";
 const Login = () => {
   return (
     <Form
-      fields={loginFields}
       title="Sign In"
       links={
         <>

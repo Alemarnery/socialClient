@@ -1,10 +1,11 @@
 {
   "fields": [
     {
-      "title": "email",
+      "title": "Email",
+      "type": "text",
       "name": "email",
       "placeholder": "email",
-      "validation ": {
+      "validation": {
         "required": "Email is required",
         "pattern": {
           "value": "/^[^@ ]+@[^@ ]+.[^@ .]{2,}$/",
@@ -13,11 +14,12 @@
       }
     },
     {
+      "title": "Password",
       "type": "password",
       "name": "password",
       "placeholder": "password",
       "validation": {
-        "required": "required",
+        "required": "Password is required",
         "minLength": {
           "value": 4,
           "message": "Password must be between 4 and 20 caracters"
