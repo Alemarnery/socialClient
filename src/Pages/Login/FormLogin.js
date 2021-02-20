@@ -9,6 +9,7 @@ const FormLogin = () => {
 
   const renderedInput = inputFields.fields.map((input) => {
     const { name, placeholder, title, type } = input;
+
     return (
       <div className="required field">
         <label>{title}</label>
@@ -18,8 +19,7 @@ const FormLogin = () => {
           type={type}
           ref={register(input.validation)}
         />
-        {console.log(errors)}
-        {/* {errors.name && <ErrorMessage error={errors.name.message} />} */}
+        {errors[name] && <ErrorMessage error={errors[name].message} />}
       </div>
     );
   });
