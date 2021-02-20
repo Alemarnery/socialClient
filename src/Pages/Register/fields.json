@@ -1,10 +1,28 @@
 {
   "fields": [
     {
-      "title": "email",
+      "css": "required field",
+      "title": "Name",
+      "type": "text",
+      "name": "name",
+      "placeholder": "name",
+      "validation": {
+        "required": "Name is required"
+      }
+    },
+    {
+      "css": "field",
+      "title": "Last Name",
+      "type": "text",
+      "name": "lastName"
+    },
+    {
+      "css": "required field",
+      "title": "Email",
+      "type": "text",
       "name": "email",
       "placeholder": "email",
-      "validation ": {
+      "validation": {
         "required": "Email is required",
         "pattern": {
           "value": "/^[^@ ]+@[^@ ]+.[^@ .]{2,}$/",
@@ -13,11 +31,13 @@
       }
     },
     {
+      "css": "required field",
+      "title": "Password",
       "type": "password",
       "name": "password",
       "placeholder": "password",
       "validation": {
-        "required": "required",
+        "required": "Password is required",
         "minLength": {
           "value": 4,
           "message": "Password must be between 4 and 20 caracters"
@@ -26,6 +46,17 @@
           "value": 20,
           "message": "Password must be between 4 and 20 caracters"
         }
+      }
+    },
+    {
+      "css": "required field",
+      "title": "Date of Birth",
+      "type": "date",
+      "name": "birthDay",
+      "placeholder": "Date of Birth",
+      "validation": {
+        "required": "Date is required",
+        "valueAsDate": true
       }
     }
   ]
