@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../../components/Form/ErrorMessage";
 import inputFields from "./fields.json";
+import { curateFormValidation } from "../../utilities";
 
 const FormLogin = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -11,18 +12,7 @@ const FormLogin = () => {
     const { name, placeholder, title, type } = input;
     let { validation } = input;
 
-    validation =
-      typeof validation["pattern"] === "object"
-        ? {
-            ...validation,
-            pattern: {
-              ...validation.pattern,
-              value: RegExp(validation.pattern.value),
-            },
-          }
-        : false;
-
-    console.log(validation);
+    validation = curateFormValidation(validation);
 
     return (
       <div className="required field" key={index}>
