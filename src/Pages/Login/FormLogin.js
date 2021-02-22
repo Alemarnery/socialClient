@@ -7,17 +7,31 @@ const FormLogin = () => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => console.log(data);
 
-  const renderedInput = inputFields.fields.map((input) => {
+  const renderedInput = inputFields.fields.map((input, index) => {
     const { name, placeholder, title, type } = input;
+    let { validation } = input;
+
+    validation =
+      typeof validation["pattern"] === "object"
+        ? {
+            ...validation,
+            pattern: {
+              ...validation.pattern,
+              value: RegExp(validation.pattern.value),
+            },
+          }
+        : false;
+
+    console.log(validation);
 
     return (
-      <div className="required field">
+      <div className="required field" key={index}>
         <label>{title}</label>
         <input
           name={name}
           placeholder={placeholder}
           type={type}
-          ref={register(input.validation)}
+          ref={register(validation)}
         />
         {errors[name] && <ErrorMessage error={errors[name].message} />}
       </div>
