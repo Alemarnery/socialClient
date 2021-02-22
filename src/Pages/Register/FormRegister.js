@@ -1,26 +1,31 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-
-import ErrorMessage from "../../components/Form/ErrorMessage";
+import { Message } from "../../components/Form/Message";
 import inputFields from "./fields.json";
+import { curateFormValidation } from "../../utilities";
 
 const Register = () => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => console.log(data);
 
-  const renderedInput = inputFields.fields.map((input) => {
+  const renderedInput = inputFields.fields.map((input, index) => {
     const { css, name, placeholder, title, type } = input;
+    let { validation } = input;
+    validation = curateFormValidation(validation);
+    console.log(validation);
+
     return (
-      <div className={css}>
+      <div className={css} key={index}>
         <label>{title}</label>
         <input
           type={type}
           name={name}
           placeholder={placeholder}
-          ref={register(input.validation)}
+          ref={register(validation)}
         />
-
-        {errors[name] && <ErrorMessage error={errors[name].message} />}
+        {errors[name] && (
+          <Message className="error">{errors[name].message}</Message>
+        )}
       </div>
     );
   });

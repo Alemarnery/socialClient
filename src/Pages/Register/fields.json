@@ -14,7 +14,8 @@
       "css": "field",
       "title": "Last Name",
       "type": "text",
-      "name": "lastName"
+      "name": "lastName",
+      "validation": {}
     },
     {
       "css": "required field",

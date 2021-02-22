@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import ErrorMessage from "../../components/Form/ErrorMessage";
+import { Message } from "../../components/Form/Message";
 import inputFields from "./fields.json";
 import { curateFormValidation } from "../../utilities";
 
@@ -23,7 +23,9 @@ const FormLogin = () => {
           type={type}
           ref={register(validation)}
         />
-        {errors[name] && <ErrorMessage error={errors[name].message} />}
+        {errors[name] && (
+          <Message className="error">{errors[name].message}</Message>
+        )}
       </div>
     );
   });
