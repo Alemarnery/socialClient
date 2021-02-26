@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
 import inputFields from "./fields.json";
 import { curateFormValidation } from "../../utilities";
+import { sendEmailResetPassword } from "../../Api/auth";
 
 const Forgot = () => {
   const [submitForm, setSubmitForm] = useState(false);
@@ -10,6 +11,8 @@ const Forgot = () => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {
     setSubmitForm(true);
+    const { email } = data;
+    sendEmailResetPassword(email);
   };
 
   const renderedInput = inputFields.fields.map((input, index) => {
