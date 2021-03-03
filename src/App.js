@@ -3,6 +3,7 @@ import history from "./history";
 import Login from "./Pages/Login";
 import Forgot from "./Pages/Forgot";
 import Register from "./Pages/Register";
+import Modal from "./Pages/Login/Modal";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
               <Route path="/login" component={Login}></Route>
               <Route path="/register" component={Register}></Route>
               <Route path="/forgot" component={Forgot}></Route>
+              <Route path="/emailModal" component={Modal}></Route>
             </Switch>
           </div>
         </div>

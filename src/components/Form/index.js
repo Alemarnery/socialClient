@@ -6,9 +6,7 @@ const Form = ({ title, links, children }) => {
   return (
     <>
       <Header>{title}</Header>
-
       <div className="content">{children}</div>
-
       <Footer>{links}</Footer>
     </>
   );

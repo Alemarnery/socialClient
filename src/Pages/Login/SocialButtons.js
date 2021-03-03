@@ -1,4 +1,6 @@
 import React from "react";
+import history from "../../history";
+import { Link } from "react-router-dom";
 import {
   googleLogin,
   facebookLogin,
@@ -6,6 +8,16 @@ import {
   emailLogin,
   signOut,
 } from "../../Api/auth";
+import Modal from "../../components/Modal";
+
+const onClickEmailLink = () => {
+  alert("Holaa");
+  return (
+    <>
+      <Modal onDismiss={() => history.push("/")}></Modal>;
+    </>
+  );
+};
 
 const SocialButtons = () => {
   return (
@@ -15,10 +27,14 @@ const SocialButtons = () => {
         Google
       </button>
 
-      <button className="ui secondary basic button" onClick={emailLogin}>
+      <Link
+        to="/emailModal"
+        className="ui secondary basic button"
+        onClick={onClickEmailLink}
+      >
         <i className="envelope outline icon"></i>
         Email Link
-      </button>
+      </Link>
 
       <button className="ui facebook button" onClick={facebookLogin}>
         <i className="facebook icon"></i>
