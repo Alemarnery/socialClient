@@ -1,23 +1,11 @@
 import React from "react";
-import history from "../../history";
 import { Link } from "react-router-dom";
 import {
   googleLogin,
   facebookLogin,
   twitterLogin,
-  emailLogin,
   signOut,
 } from "../../Api/auth";
-import Modal from "../../components/Modal";
-
-const onClickEmailLink = () => {
-  alert("Holaa");
-  return (
-    <>
-      <Modal onDismiss={() => history.push("/")}></Modal>;
-    </>
-  );
-};
 
 const SocialButtons = () => {
   return (
@@ -27,11 +15,7 @@ const SocialButtons = () => {
         Google
       </button>
 
-      <Link
-        to="/emailModal"
-        className="ui secondary basic button"
-        onClick={onClickEmailLink}
-      >
+      <Link to="/emailModal" className="ui secondary basic button">
         <i className="envelope outline icon"></i>
         Email Link
       </Link>

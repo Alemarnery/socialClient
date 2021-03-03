@@ -1,22 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Header from "./Header";
+import Footer from "./Footer";
 
-const Modal = (props) => {
+const Modal = ({ title, links, onDismiss, children }) => {
   return ReactDOM.createPortal(
-    <div className="ui dimmer modals visible active">
+    <div onClick={onDismiss} className="ui dimmer modals visible active">
       <div
         onClick={(e) => e.stopPropagation()}
         className="ui standard modal visible active"
       >
-        <div className="header">EMAIL</div>
-        <div className="content">
-          <div className="description">
-            <p>Are you sure you want to delete this the task with title:</p>
-          </div>
-        </div>
-        <div className="actions">
-          <button className="ui button negative">Delete</button>
-        </div>
+        <Header>{title}</Header>
+        <div className="content">{children}</div>
+        <Footer>{links}</Footer>
       </div>
     </div>,
     document.querySelector("#root")
