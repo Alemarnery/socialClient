@@ -75,8 +75,7 @@ export const twitterLogin = () => {
     });
 };
 
-export const emailLogin = () => {
-  alert("ENVIAR EL EMAIL");
+export const emailLogin = ({ email }) => {
   const actionCodeSettings = {
     url: "http://localhost:3000/",
     handleCodeInApp: true,
@@ -91,14 +90,12 @@ export const emailLogin = () => {
     dynamicLinkDomain: "socialAlem.page.link",
   };
 
-  const email = "aleemar.95@gmail.com";
-
   firebase
     .auth()
     .sendSignInLinkToEmail(email, actionCodeSettings)
     .then(() => {
-      alert("Send Link to email");
       window.localStorage.setItem("emailForSignIn", email);
+      console.log("email enviado");
     })
     .catch((error) => {
       console.log(error);
