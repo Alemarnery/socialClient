@@ -11,6 +11,8 @@ const EmailModal = () => {
     await emailLogin(data);
   };
 
+  console.log(errors);
+
   return (
     <Modal title="Send Email to Link" onDismiss={() => history.push("/login")}>
       <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
