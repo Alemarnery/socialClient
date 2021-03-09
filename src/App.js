@@ -4,6 +4,7 @@ import Login from "./Pages/Login";
 import Forgot from "./Pages/Forgot";
 import Register from "./Pages/Register";
 import EmailModal from "./Pages/Login/EmailModal";
+import Profle from "./Pages/Profile";
 
 const App = () => {
   return (
@@ -19,6 +20,11 @@ const App = () => {
             </Switch>
           </div>
         </div>
+
+        {/* Dentro de la app */}
+        <Switch>
+          <Route path="/profile" component={Profle} />
+        </Switch>
       </div>
     </Router>
   );

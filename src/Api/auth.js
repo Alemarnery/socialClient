@@ -1,5 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import { writeUserData } from "../database/authQueries";
+import history from "../history";
 
 export function sendEmailResetPassword(email) {
   //Enviar Correo
@@ -17,18 +19,14 @@ export function sendEmailResetPassword(email) {
 
 export function googleLogin() {
   const provider = new firebase.auth.GoogleAuthProvider();
-
   firebase
     .auth()
     .signInWithPopup(provider)
-    .then((result) => {
-      console.log(`Hola User! ${result} `);
+    .then(async (result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      const credential = result.credential;
-      const token = credential.accessToken;
       const user = result.user;
-      console.log(`${token}`);
-      console.log(`${user}`);
+      await writeUserData(user);
+      history.push(`/profile`);
     })
     .catch((error) => {
       console.log(error);
