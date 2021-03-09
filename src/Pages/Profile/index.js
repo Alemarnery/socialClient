@@ -7,7 +7,9 @@ const Profile = () => {
   useEffect(() => {
     async function fetchData() {
       const user = await authUser();
-      setUser(user);
+      if (!user) {
+        setUser(user);
+      }
     }
     fetchData();
   }, [user]);
