@@ -5,22 +5,26 @@ import FormLogin from "./FormLogin";
 
 const Login = () => {
   return (
-    <Form
-      title="Sign In"
-      links={
-        <>
-          <a href="/register">
-            <i className="user icon"></i>Don't have an account?
-          </a>
-          <a href="/forgot" className="right floated">
-            <i className="info icon"></i>Forgot your password?
-          </a>
-        </>
-      }
-    >
-      <SocialButtons />
-      <FormLogin />
-    </Form>
+    <div className="ui middle aligned two column centered grid">
+      <div className="ui card column">
+        <Form
+          title="Sign In"
+          links={
+            <>
+              <a href="/register">
+                <i className="user icon"></i>Don't have an account?
+              </a>
+              <a href="/forgot" className="right floated">
+                <i className="info icon"></i>Forgot your password?
+              </a>
+            </>
+          }
+        >
+          <SocialButtons />
+          <FormLogin />
+        </Form>
+      </div>
+    </div>
   );
 };
 
