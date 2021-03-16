@@ -21,7 +21,7 @@ const App = () => {
           </div>
         </div>
 
-        {/* Dentro de la app */}
+        {/* Dentro de la APP, incluir menu*/}
         <Switch>
           <Route path="/profile" component={Profle} />
         </Switch>
