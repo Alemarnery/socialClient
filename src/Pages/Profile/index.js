@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { authUser } from "../../database/authQueries";
 import Layout from "../../components/layout";
-import Card from "../../components/Card";
+import Form from "../../components/Form";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -21,14 +21,14 @@ const Profile = () => {
 
   const { displayName, email, photoURL } = user;
   return (
-    <Layout>
-      <Card header={<img src={photoURL} />}>
-        <form
-          className="ui equal width form error"
-          method="POST"
-          action="register"
-        >
-          <div className="fields">
+    <Layout title="Profile">
+      <div className="ui eight wide card column centered">
+        <Form>
+          <form className="ui form error" method="POST" action="register">
+            <div className="field">
+              <img className="ui centered medium image" src={photoURL} />
+            </div>
+
             <div className="required field">
               <label>Name</label>
               <input
@@ -43,38 +43,38 @@ const Profile = () => {
               <label>Last Name</label>
               <input type="text" name="lastName" placeholder="Last Name" />
             </div>
-          </div>
 
-          <div className="required field">
-            <label>Email</label>
-            <input type="text" name="email" value={email} disabled />
-          </div>
+            <div className="required field">
+              <label>Email</label>
+              <input type="text" name="email" value={email} disabled />
+            </div>
 
-          <div className="required field">
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              type="password"
-            />
-          </div>
+            <div className="required field">
+              <label>Password</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                type="password"
+              />
+            </div>
 
-          <div className="required field">
-            <label>Date of Birth</label>
-            <input
-              type="date"
-              name="birthDay"
-              placeholder="Date of Birth"
-              type="date"
-            />
-          </div>
+            <div className="required field">
+              <label>Date of Birth</label>
+              <input
+                type="date"
+                name="birthDay"
+                placeholder="Date of Birth"
+                type="date"
+              />
+            </div>
 
-          <button className="ui button" type="submit">
-            Submit
-          </button>
-        </form>
-      </Card>
+            <button className="fluid ui blue button" type="submit">
+              Submit
+            </button>
+          </form>
+        </Form>
+      </div>
     </Layout>
   );
 };

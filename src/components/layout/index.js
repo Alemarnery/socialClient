@@ -2,10 +2,11 @@ import React from "react";
 import Menu from "./Menu";
 import Footer from "./Footer";
 
-const Layout = ({ children }) => {
+const Layout = ({ title, children }) => {
   return (
-    <div className="ui container grid">
+    <div className="ui grid">
       <Menu />
+      <h1 className="ui header">{title}</h1>
       <div className="row">{children}</div>
       <Footer />
     </div>
