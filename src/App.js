@@ -9,15 +9,17 @@ import Profile from "./Pages/Profile";
 const App = () => {
   return (
     <Router history={history}>
-      <div className="ui container grid">
-        <Switch>
-          <Route path="/login" exact component={Login}></Route>
-          <Route path="/register" exact component={Register}></Route>
-          <Route path="/forgot" exact component={Forgot}></Route>
-          <Route path="/emailModal" exact component={EmailModal}></Route>
-          <Route path="/profile" exact component={Profile} />
-        </Switch>
-      </div>
+      <Switch>
+        {/* Colocarle a estas rutas el container */}
+        <Route path="/login" exact component={Login}></Route>
+        <Route path="/register" exact component={Register}></Route>
+        <Route path="/forgot" exact component={Forgot}></Route>
+        <Route path="/emailModal" exact component={EmailModal}></Route>
+        {/* 
+        A esta NO */}
+
+        <Route path="/profile" exact component={Profile} />
+      </Switch>
     </Router>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { authUser } from "../../database/authQueries";
-import Menu from "../../components/Menu";
+import Layout from "../../components/layout";
 import Card from "../../components/Card";
 
 const Profile = () => {
@@ -21,8 +21,7 @@ const Profile = () => {
 
   const { displayName, email, photoURL } = user;
   return (
-    <>
-      <Menu />
+    <Layout>
       <Card header={<img src={photoURL} />}>
         <form
           className="ui equal width form error"
@@ -76,7 +75,7 @@ const Profile = () => {
           </button>
         </form>
       </Card>
-    </>
+    </Layout>
   );
 };
 
