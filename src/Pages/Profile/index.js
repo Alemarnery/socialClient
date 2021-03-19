@@ -15,6 +15,10 @@ const Profile = () => {
     fetchData();
   }, []);
 
+  const handleChange = () => {
+    console.log("change");
+  };
+
   if (!user) {
     return <div>Profile</div>;
   }
@@ -36,6 +40,7 @@ const Profile = () => {
                 name="name"
                 value={displayName}
                 placeholder="First Name"
+                onChange={handleChange}
               />
             </div>
 
@@ -56,6 +61,7 @@ const Profile = () => {
                 name="password"
                 placeholder="Password"
                 type="password"
+                onChange={handleChange}
               />
             </div>
 
@@ -66,6 +72,7 @@ const Profile = () => {
                 name="birthDay"
                 placeholder="Date of Birth"
                 type="date"
+                onChange={handleChange}
               />
             </div>
 
