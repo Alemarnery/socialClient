@@ -1,14 +1,23 @@
 import React from "react";
+import { signOut } from "../../Api/auth";
 
 const Menu = () => {
   return (
     <div className="sixteen wide column">
       <div className="ui inverted menu">
-        <a className="item active">Home</a>
-        <a className="item active">Messages</a>
-        <a className="item">Friends</a>
+        <a className="item active" href="/login">
+          Home
+        </a>
+        <a className="item active" href="/login">
+          Messages
+        </a>
+        <a className="item" href="/login">
+          Friends
+        </a>
         <div className="item">
-          <div className="ui blue button">Sign Out</div>
+          <a className="ui blue button" onClick={signOut}>
+            Sign Out
+          </a>
         </div>
       </div>
     </div>

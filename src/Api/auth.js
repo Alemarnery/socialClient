@@ -38,13 +38,11 @@ export const facebookLogin = () => {
   firebase
     .auth()
     .signInWithPopup(provider)
-    .then((result) => {
+    .then(async (result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      const credential = result.credential;
       const user = result.user;
-      const accessToken = credential.accessToken;
-      console.log(`${user}`);
-      console.log(`${accessToken}`);
+      await writeUserData(user);
+      history.push(`/profile`);
     })
     .catch((error) => {
       console.log(error);
@@ -53,20 +51,14 @@ export const facebookLogin = () => {
 
 export const twitterLogin = () => {
   const provider = new firebase.auth.TwitterAuthProvider();
-
   firebase
     .auth()
     .signInWithPopup(provider)
-    .then((result) => {
-      console.log(`twitter signIn ${result}  `);
+    .then(async (result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      const credential = result.credential;
-      const token = credential.accessToken;
-      const secret = credential.secret;
       const user = result.user;
-      console.log(`${user}`);
-      console.log(`${secret}`);
-      console.log(`${token}`);
+      await writeUserData(user);
+      history.push(`/profile`);
     })
     .catch((error) => {
       console.log(error);
