@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import firebase from "firebase/app";
 import "firebase/auth";
+import { isSignInWithEmailLink } from "./Api/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDyCU5HUy_lBrNbTGL0Mpbm9py-5qrb8PU",
@@ -25,22 +26,7 @@ firebase.auth().onAuthStateChanged(function (user) {
   }
 });
 
-//**Confirm the link is a sign-in with email link*/
-if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
-  const email = window.localStorage.getItem("emailForSignIn");
-  if (!email) {
-    email = window.prompt("Please provide your email for confirmation");
-  }
-  firebase
-    .auth()
-    .signInWithEmailLink(email, window.location.href)
-    .then((result) => {
-      window.localStorage.removeItem("emailForSignIn");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
+isSignInWithEmailLink();
 
 ReactDOM.render(
   <React.StrictMode>

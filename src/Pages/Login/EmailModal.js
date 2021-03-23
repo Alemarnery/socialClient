@@ -24,7 +24,6 @@ const EmailModal = () => {
           sure to check your spam and trash if you can’t find the email
         </Message>
       )}
-
       <FormModal onSubmit={onSubmit} />
     </Modal>
   );

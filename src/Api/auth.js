@@ -92,6 +92,29 @@ export const emailLogin = ({ email }) => {
     });
 };
 
+export const isSignInWithEmailLink = () => {
+  //**Confirm the link is a sign-in with email link*/
+  if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+    const email = window.localStorage.getItem("emailForSignIn");
+    if (!email) {
+      email = window.prompt("Please provide your email for confirmation");
+    }
+    firebase
+      .auth()
+      .signInWithEmailLink(email, window.location.href)
+      .then(async (result) => {
+        console.log(`Inicio sesion con un enlace de correo electronico`);
+        window.localStorage.removeItem("emailForSignIn");
+        const user = result.user;
+        await writeUserData(user);
+        history.push(`/profile`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+};
+
 export function signOut() {
   firebase
     .auth()
