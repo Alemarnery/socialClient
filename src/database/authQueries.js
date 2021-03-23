@@ -3,7 +3,6 @@ import "firebase/auth";
 import "firebase/database";
 
 export function writeUserData(userData) {
-  console.log(userData);
   const { uid, email, phoneNumber, photoURL, displayName } = userData;
   firebase
     .database()
