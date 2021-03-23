@@ -1,45 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "../../components/Modal";
 import history from "../../history";
-import { useForm } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
 import { emailLogin } from "../../Api/auth";
+import FormModal from "./FormModal";
 
 const EmailModal = () => {
-  const { register, handleSubmit, errors } = useForm();
-  const onSubmit = async (data) => {
-    await emailLogin(data);
-  };
+  const [submitForm, setSubmitForm] = useState(false);
 
-  console.log(errors);
+  const onSubmit = async (data) => {
+    setSubmitForm(true);
+    await emailLogin(data);
+    setTimeout(function () {
+      history.push("/login");
+    }, 4000);
+  };
 
   return (
     <Modal title="Send Email to Link" onDismiss={() => history.push("/login")}>
-      <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
-        <div className="required field">
-          <label>Email</label>
-          <input
-            name="email"
-            type="text"
-            placeholder="email"
-            ref={register({
-              validation: {
-                required: "Email is required",
-                pattern: {
-                  value: /^[^@ ]+@[^@ ]+.[^@ .]{2,}$/,
-                  message: "Must be a valid email",
-                },
-              },
-            })}
-          />
-          {errors.email && (
-            <Message className="error">{errors.email.message}</Message>
-          )}
-        </div>
-        <button className="ui button" type="submit">
-          Submit
-        </button>
-      </form>
+      {submitForm && (
+        <Message className="positive">
+          You should soon receive an email allowing you to signIn. Please make
+          sure to check your spam and trash if you can’t find the email
+        </Message>
+      )}
+
+      <FormModal onSubmit={onSubmit} />
     </Modal>
   );
 };

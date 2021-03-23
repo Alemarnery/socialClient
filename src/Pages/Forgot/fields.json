@@ -1,7 +1,7 @@
 {
   "fields": [
     {
-      "title": "email",
+      "title": "Email",
       "name": "email",
       "placeholder": "email",
       "validation": {
