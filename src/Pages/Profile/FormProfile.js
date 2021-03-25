@@ -10,12 +10,19 @@ const FormProfile = ({ user }) => {
     console.log("change");
   };
 
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   const { displayName, email, photoURL } = user;
 
   return (
-    <form className="ui form error" method="POST" action="register">
+    <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
-        <img className="ui centered medium image" src={photoURL} />
+        <label>
+          <img className="ui centered medium circular image" src={photoURL} />
+        </label>
+        <input type="file" />
       </div>
 
       <div className="required field">
