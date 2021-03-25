@@ -3,6 +3,11 @@ import "firebase/auth";
 import { writeUserData } from "../database/authQueries";
 import history from "../history";
 
+async function getUserData(user) {
+  await writeUserData(user);
+  history.push(`/profile`);
+}
+
 export function sendEmailResetPassword(email) {
   //Enviar Correo
   const auth = firebase.auth();
@@ -25,8 +30,7 @@ export function googleLogin() {
     .then(async (result) => {
       /** @type {firebase.auth.OAuthCredential} */
       const user = result.user;
-      await writeUserData(user);
-      history.push(`/profile`);
+      getUserData(user);
     })
     .catch((error) => {
       console.log(error);
@@ -41,8 +45,7 @@ export const facebookLogin = () => {
     .then(async (result) => {
       /** @type {firebase.auth.OAuthCredential} */
       const user = result.user;
-      await writeUserData(user);
-      history.push(`/profile`);
+      getUserData(user);
     })
     .catch((error) => {
       console.log(error);
@@ -57,8 +60,7 @@ export const twitterLogin = () => {
     .then(async (result) => {
       /** @type {firebase.auth.OAuthCredential} */
       const user = result.user;
-      await writeUserData(user);
-      history.push(`/profile`);
+      getUserData(user);
     })
     .catch((error) => {
       console.log(error);
@@ -93,7 +95,6 @@ export const emailLogin = ({ email }) => {
 };
 
 export const isSignInWithEmailLink = () => {
-  //**Confirm the link is a sign-in with email link*/
   if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
     const email = window.localStorage.getItem("emailForSignIn");
     if (!email) {
@@ -103,11 +104,9 @@ export const isSignInWithEmailLink = () => {
       .auth()
       .signInWithEmailLink(email, window.location.href)
       .then(async (result) => {
-        console.log(`Inicio sesion con un enlace de correo electronico`);
         window.localStorage.removeItem("emailForSignIn");
         const user = result.user;
-        await writeUserData(user);
-        history.push(`/profile`);
+        getUserData(user);
       })
       .catch((error) => {
         console.log(error);
