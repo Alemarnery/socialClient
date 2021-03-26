@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
-import inputFields from "../../components/Fields/register.json";
+import inputFields from "../../components/Fields/completedForm.json";
 import { curateFormValidation } from "../../utilities";
 
 const Register = () => {

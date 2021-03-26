@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
-import inputFields from "../../components/Fields/forgot.json";
+import inputFields from "../../components/Fields/Email.json";
 import { curateFormValidation } from "../../utilities";
 
 const FormModal = ({ onSubmit }) => {
