@@ -14,6 +14,8 @@ const FormProfile = ({ user }) => {
     console.log(data);
   };
 
+  console.log(errors);
+
   const { displayName, email, photoURL } = user;
 
   return (
@@ -23,22 +25,6 @@ const FormProfile = ({ user }) => {
           <img className="ui centered medium circular image" src={photoURL} />
         </label>
         <input type="file" />
-      </div>
-
-      <div className="required field">
-        <label>Name</label>
-        <input
-          type="text"
-          name="name"
-          value={displayName}
-          placeholder="First Name"
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="field">
-        <label>Last Name</label>
-        <input type="text" name="lastName" placeholder="Last Name" />
       </div>
 
       <div className="required field">

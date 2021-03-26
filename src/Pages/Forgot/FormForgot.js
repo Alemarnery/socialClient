@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
-import inputFields from "./fields.json";
+import inputFields from "../../components/Fields/forgot.json";
 import { curateFormValidation } from "../../utilities";
 import { sendEmailResetPassword } from "../../Api/auth";
 
