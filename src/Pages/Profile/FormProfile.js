@@ -28,33 +28,6 @@ const FormProfile = ({ user }) => {
         <input type="file" />
       </div>
 
-      <div className="required field">
-        <label>Email</label>
-        <input type="text" name="email" value={email} disabled />
-      </div>
-
-      <div className="required field">
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          type="password"
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="required field">
-        <label>Date of Birth</label>
-        <input
-          type="date"
-          name="birthDay"
-          placeholder="Date of Birth"
-          type="date"
-          onChange={handleChange}
-        />
-      </div>
-
       <button className="fluid ui blue button" type="submit">
         Submit
       </button>
