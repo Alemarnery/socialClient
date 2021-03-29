@@ -15,6 +15,26 @@ const FormProfile = ({ user }) => {
     console.log(data);
   };
 
+  const renderedInput = inputFields.fields.map((input, index) => {
+    const { css, title, type, name, placeholder } = input;
+    let { validation } = input;
+    validation = curateFormValidation(validation);
+    return (
+      <div className={css} key={index}>
+        <label>{title}</label>
+        <input
+          name={name}
+          placeholder={placeholder}
+          type={type}
+          ref={register(validation)}
+        />
+        {errors[name] && (
+          <Message className="error">{errors[name].message}</Message>
+        )}
+      </div>
+    );
+  });
+
   console.log(errors);
 
   const { displayName, email, photoURL } = user;
@@ -27,6 +47,7 @@ const FormProfile = ({ user }) => {
         </label>
         <input type="file" />
       </div>
+      {renderedInput}
 
       <button className="fluid ui blue button" type="submit">
         Submit
