@@ -37,7 +37,7 @@ const FormProfile = ({ user }) => {
 
   console.log(errors);
 
-  const { displayName, email, photoURL } = user;
+  const { displayName, lastName, email, photoURL } = user;
 
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
