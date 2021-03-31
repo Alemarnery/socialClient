@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
 import inputFields from "../../components/Fields/completedForm.json";
 import { curateFormValidation } from "../../utilities";
 
 const FormProfile = ({ user }) => {
+  const { photoURL } = user;
+
+  const [name, setName] = useState(user.displayName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [email, setEmail] = useState(user.email);
+
+  console.log(user.lastName);
+  console.log(user.email);
+
+  console.log(name);
+  console.log(lastName);
+  console.log(email);
+
   const { register, handleSubmit, errors } = useForm();
 
   const handleChange = () => {
@@ -24,6 +37,7 @@ const FormProfile = ({ user }) => {
         <label>{title}</label>
         <input
           name={name}
+          value="Hola"
           placeholder={placeholder}
           type={type}
           ref={register(validation)}
@@ -36,8 +50,6 @@ const FormProfile = ({ user }) => {
   });
 
   console.log(errors);
-
-  const { displayName, lastName, email, photoURL } = user;
 
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
