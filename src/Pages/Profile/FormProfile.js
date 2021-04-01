@@ -4,24 +4,26 @@ import { Message } from "../../components/Form/Message";
 import inputFields from "../../components/Fields/completedForm.json";
 import { curateFormValidation } from "../../utilities";
 
-const FormProfile = ({ user }) => {
-  const { photoURL } = user;
+const FormProfile = ({ userValues }) => {
+  const { photoURL } = userValues;
 
-  const [name, setName] = useState(user.displayName);
-  const [lastName, setLastName] = useState(user.lastName);
-  const [email, setEmail] = useState(user.email);
-
-  console.log(user.lastName);
-  console.log(user.email);
-
-  console.log(name);
-  console.log(lastName);
-  console.log(email);
+  const [name, setName] = useState();
+  const [lastName, setLastName] = useState();
+  const [email, setEmail] = useState();
+  const [photo, setPhoto] = useState(photoURL);
 
   const { register, handleSubmit, errors } = useForm();
 
-  const handleChange = () => {
-    console.log("change");
+  const handleInputChange = (event) => {
+    //const target = event.
+
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value,
+    });
   };
 
   const onSubmit = (data) => {
@@ -37,9 +39,9 @@ const FormProfile = ({ user }) => {
         <label>{title}</label>
         <input
           name={name}
-          value="Hola"
           placeholder={placeholder}
           type={type}
+          onChange={handleInputChange}
           ref={register(validation)}
         />
         {errors[name] && (
@@ -49,18 +51,17 @@ const FormProfile = ({ user }) => {
     );
   });
 
-  console.log(errors);
+  console.log(photo);
 
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
         <label>
-          <img className="ui centered medium circular image" src={photoURL} />
+          <img className="ui centered medium circular image" src={photo} />
         </label>
-        <input type="file" />
+        <input type="file" onChange={() => setPhoto("hola")} />
       </div>
       {renderedInput}
-
       <button className="fluid ui blue button" type="submit">
         Submit
       </button>
