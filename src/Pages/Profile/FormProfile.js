@@ -7,23 +7,34 @@ import { curateFormValidation } from "../../utilities";
 const FormProfile = ({ userValues }) => {
   const { photoURL } = userValues;
 
+  const [photo, setPhoto] = useState(photoURL);
   const [name, setName] = useState();
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
-  const [photo, setPhoto] = useState(photoURL);
+  const [birthDay, setBirthDay] = useState();
 
   const { register, handleSubmit, errors } = useForm();
 
   const handleInputChange = (event) => {
-    //const target = event.
-
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
-    this.setState({
-      [name]: value,
-    });
+    switch (name) {
+      case "name":
+        setName(value);
+        break;
+      case "lastName":
+        setLastName(value);
+        break;
+      case "email":
+        setEmail(value);
+        break;
+      case "birthDay":
+        setBirthDay(value);
+    }
+
+    console.log(name, value);
   };
 
   const onSubmit = (data) => {
@@ -51,15 +62,13 @@ const FormProfile = ({ userValues }) => {
     );
   });
 
-  console.log(photo);
-
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
         <label>
           <img className="ui centered medium circular image" src={photo} />
         </label>
-        <input type="file" onChange={() => setPhoto("hola")} />
+        <input type="file" onChange={(e) => setPhoto(e.target.value)} />
       </div>
       {renderedInput}
       <button className="fluid ui blue button" type="submit">
