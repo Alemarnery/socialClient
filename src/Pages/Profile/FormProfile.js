@@ -11,9 +11,14 @@ const FormProfile = ({ userValues }) => {
   const [name, setName] = useState();
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const [birthDay, setBirthDay] = useState();
 
   const { register, handleSubmit, errors } = useForm();
+
+  const defaultValue = (event) => {
+    return "default value";
+  };
 
   const handleInputChange = (event) => {
     const target = event.target;
@@ -30,11 +35,12 @@ const FormProfile = ({ userValues }) => {
       case "email":
         setEmail(value);
         break;
+      case "password":
+        setPassword(value);
+        break;
       case "birthDay":
         setBirthDay(value);
     }
-
-    console.log(name, value);
   };
 
   const onSubmit = (data) => {
@@ -52,6 +58,7 @@ const FormProfile = ({ userValues }) => {
           name={name}
           placeholder={placeholder}
           type={type}
+          value={defaultValue}
           onChange={handleInputChange}
           ref={register(validation)}
         />
