@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { useForm } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
 import inputFields from "../../components/Fields/completedForm.json";
@@ -15,10 +15,6 @@ const FormProfile = ({ userValues }) => {
   const [birthDay, setBirthDay] = useState();
 
   const { register, handleSubmit, errors } = useForm();
-
-  const defaultValue = (event) => {
-    return "default value";
-  };
 
   const handleInputChange = (event) => {
     const target = event.target;
@@ -47,6 +43,8 @@ const FormProfile = ({ userValues }) => {
     console.log(data);
   };
 
+  console.log(errors);
+
   const renderedInput = inputFields.fields.map((input, index) => {
     const { css, title, type, name, placeholder } = input;
     let { validation } = input;
@@ -58,7 +56,6 @@ const FormProfile = ({ userValues }) => {
           name={name}
           placeholder={placeholder}
           type={type}
-          value={defaultValue}
           onChange={handleInputChange}
           ref={register(validation)}
         />
@@ -75,9 +72,18 @@ const FormProfile = ({ userValues }) => {
         <label>
           <img className="ui centered medium circular image" src={photo} />
         </label>
-        <input type="file" onChange={(e) => setPhoto(e.target.value)} />
+        <input
+          type="file"
+          name="image"
+          onChange={(e) => setPhoto(e.target.value)}
+          ref={register({
+            required: "Image is required",
+          })}
+        />
       </div>
+
       {renderedInput}
+
       <button className="fluid ui blue button" type="submit">
         Submit
       </button>
