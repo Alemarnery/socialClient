@@ -32,6 +32,8 @@ export async function authUser() {
   return user;
 }
 
-export const updateUser = () => {
+export const updateUser = (data) => {
+  const { birthDay, email, image, lastName, name, password } = data;
+  console.log(image);
   console.log("updateUser");
 };

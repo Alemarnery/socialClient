@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
 import inputFields from "../../components/Fields/completedForm.json";
@@ -8,17 +8,17 @@ import { updateUser } from "../../database/authQueries";
 const FormProfile = ({ userValues }) => {
   const { photoURL } = userValues;
 
-  const [photo, setPhoto] = useState(photoURL);
-
   const { register, handleSubmit, errors } = useForm();
 
   const handleInputChange = (event) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
+    console.log(name, value);
   };
 
   const onSubmit = (data) => {
+    console.log(data);
     updateUser(data);
   };
 
@@ -32,8 +32,8 @@ const FormProfile = ({ userValues }) => {
         <input
           name={name}
           placeholder={placeholder}
-          type={type}
           onChange={handleInputChange}
+          type={type}
           ref={register(validation)}
         />
         {errors[name] && (
@@ -47,7 +47,7 @@ const FormProfile = ({ userValues }) => {
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
         <label>
-          <img className="ui centered medium circular image" src={photo} />
+          <img className="ui centered medium circular image" src={photoURL} />
         </label>
         <input
           type="file"
