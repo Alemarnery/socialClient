@@ -3,16 +3,12 @@ import { useForm } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
 import inputFields from "../../components/Fields/completedForm.json";
 import { curateFormValidation } from "../../utilities";
+import { updateUser } from "../../database/authQueries";
 
 const FormProfile = ({ userValues }) => {
   const { photoURL } = userValues;
 
   const [photo, setPhoto] = useState(photoURL);
-  const [name, setName] = useState();
-  const [lastName, setLastName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [birthDay, setBirthDay] = useState();
 
   const { register, handleSubmit, errors } = useForm();
 
@@ -20,30 +16,11 @@ const FormProfile = ({ userValues }) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-
-    switch (name) {
-      case "name":
-        setName(value);
-        break;
-      case "lastName":
-        setLastName(value);
-        break;
-      case "email":
-        setEmail(value);
-        break;
-      case "password":
-        setPassword(value);
-        break;
-      case "birthDay":
-        setBirthDay(value);
-    }
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    updateUser(data);
   };
-
-  console.log(errors);
 
   const renderedInput = inputFields.fields.map((input, index) => {
     const { css, title, type, name, placeholder } = input;
@@ -75,11 +52,14 @@ const FormProfile = ({ userValues }) => {
         <input
           type="file"
           name="image"
-          onChange={(e) => setPhoto(e.target.value)}
+          onChange={handleInputChange}
           ref={register({
             required: "Image is required",
           })}
         />
+        {errors["image"] && (
+          <Message className="error">{errors["image"].message}</Message>
+        )}
       </div>
 
       {renderedInput}

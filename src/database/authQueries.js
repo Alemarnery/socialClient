@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
+import "firebase/storage";
 
 export function writeUserData(userData) {
   const { uid, email, phoneNumber, photoURL, displayName } = userData;
@@ -30,3 +31,7 @@ export async function authUser() {
 
   return user;
 }
+
+export const updateUser = () => {
+  console.log("updateUser");
+};
