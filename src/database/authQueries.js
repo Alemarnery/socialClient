@@ -42,5 +42,19 @@ export const updateUser = (data) => {
   const storageRef = firebase.storage().ref();
 
   // Upload the file and metadata
-  storageRef.child(`userImage/${userId}/${imageName}`).put(imagee);
+  const uploadImage = storageRef
+    .child(`userImage/${userId}/${imageName}`)
+    .put(image);
+
+  uploadImage.on("state_changed", console.log, console.error, () => {
+    firebase
+      .storage()
+      .ref(`userImage/${userId}`)
+      .child(`${imageName}`)
+      .getDownloadURL()
+      .then((url) => {
+        //Esta url debo devolverla, para cambiar la imagen en la vista
+        console.log(url);
+      });
+  });
 };
