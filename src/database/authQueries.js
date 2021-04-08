@@ -40,7 +40,6 @@ export const updateUser = (data) => {
 
   // Create a root reference
   const storageRef = firebase.storage().ref();
-
   // Upload the file and metadata
   const uploadImage = storageRef
     .child(`userImage/${userId}/${imageName}`)
