@@ -17,7 +17,7 @@ const Profile = () => {
   }, []);
 
   if (!userData) {
-    return <div>User Profile!</div>;
+    return <div>!</div>;
   }
 
   return (
