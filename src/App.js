@@ -1,4 +1,4 @@
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch , Redirect} from "react-router-dom";
 import history from "./history";
 import Login from "./Pages/Login";
 import Forgot from "./Pages/Forgot";
@@ -11,6 +11,9 @@ const App = () => {
     <Router history={history}>
       <Switch>
         {/* Colocarle a estas rutas el container */}
+        <Route path="/" exact>
+          <Redirect to="/login"/>
+        </Route>
         <Route path="/login" exact component={Login}></Route>
         <Route path="/register" exact component={Register}></Route>
         <Route path="/forgot" exact component={Forgot}></Route>
