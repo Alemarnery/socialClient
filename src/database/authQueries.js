@@ -44,7 +44,7 @@ export const updateUser = (data) => {
   // Upload the file and metadata
   const uploadImage = storageRef
     .child(`userImage/${userId}/${imageName}`)
-    .put(image);
+    .put(imageName); // Creo que el put no deberia ir aqui
 
   uploadImage.on("state_changed", console.log, console.error, () => {
     firebase

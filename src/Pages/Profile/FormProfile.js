@@ -9,16 +9,16 @@ const FormProfile = ({ userValues }) => {
   //A los inputs del formulario Profile les falta el value de la base de datos
   //los nombres de los inputs de la db, no son iguales a los del form de Registro
   //(PORQUE REGISTRE/LOGIN CON GOOGLE) 
-  
-  console.log(userValues);
   const { photoURL } = userValues;
 
   const { register, handleSubmit, errors } = useForm();
 
   const handleInputChange = (event) => {
     const target = event.target;
+    //Value and name del input
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
+    console.log(value, name)
   };
 
   const onSubmit = (data) => {
