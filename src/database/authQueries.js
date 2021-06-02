@@ -32,6 +32,7 @@ export async function authUser() {
   return user;
 }
 
+//Revisar upload image
 export const updateUser = (data) => {
   const { birthDay, email, image, lastName, name, password } = data;
 

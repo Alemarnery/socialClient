@@ -6,6 +6,11 @@ import { curateFormValidation } from "../../utilities";
 import { updateUser } from "../../database/authQueries";
 
 const FormProfile = ({ userValues }) => {
+  //A los inputs del formulario Profile les falta el value de la base de datos
+  //los nombres de los inputs de la db, no son iguales a los del form de Registro
+  //(PORQUE REGISTRE/LOGIN CON GOOGLE) 
+  
+  console.log(userValues);
   const { photoURL } = userValues;
 
   const { register, handleSubmit, errors } = useForm();
@@ -14,13 +19,13 @@ const FormProfile = ({ userValues }) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-    console.log(name, value);
   };
 
   const onSubmit = (data) => {
     console.log(data);
     updateUser(data);
   };
+
 
   const renderedInput = inputFields.fields.map((input, index) => {
     const { css, title, type, name, placeholder } = input;
