@@ -13,16 +13,16 @@ const FormProfile = ({ userValues }) => {
 
   const { register, handleSubmit, errors } = useForm();
 
+  //Este metodo no hace gran cosa
   const handleInputChange = (event) => {
     const target = event.target;
     //Value and name del input
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-    console.log(value, name)
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log('Submit',data);
     updateUser(data);
   };
 

@@ -42,19 +42,10 @@ export const updateUser = (data) => {
   // Create a root reference
   const storageRef = firebase.storage().ref();
   // Upload the file and metadata
-  const uploadImage = storageRef
-    .child(`userImage/${userId}/${imageName}`)
-    .put(imageName); // Creo que el put no deberia ir aqui
+  const imageRef = storageRef.child(`userImage/${userId}/${imageName}`)
+  
+    imageRef.put(image).then(function(snapshot) {
+      console.log('Uploaded a blob or file!');
+    })
 
-  uploadImage.on("state_changed", console.log, console.error, () => {
-    firebase
-      .storage()
-      .ref(`userImage/${userId}`)
-      .child(`${imageName}`)
-      .getDownloadURL()
-      .then((url) => {
-        //Esta url debo devolverla, para cambiar la imagen en la vista
-        console.log(url);
-      });
-  });
 };
