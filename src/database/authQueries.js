@@ -43,7 +43,8 @@ export const updateUser = (data) => {
   const storageRef = firebase.storage().ref();
   // Upload the file and metadata
   const imageRef = storageRef.child(`userImage/${userId}/${imageName}`)
-  
+
+  //debo hacer algo con el file, VEEEER
     imageRef.put(image).then(function(snapshot) {
       console.log('Uploaded a blob or file!');
     })
