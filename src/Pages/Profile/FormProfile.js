@@ -8,6 +8,7 @@ import { updateUser } from "../../database/authQueries";
 const FormProfile = ({ userValues }) => {
   const { photoURL } = userValues; //debo extraer las otras propiedades
   const [userImage, setUserImage] = useState(photoURL);
+
   const { register, handleSubmit, errors } = useForm();
 
   const handleInputChange = (event) => {
@@ -48,10 +49,6 @@ const FormProfile = ({ userValues }) => {
 
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
-      <h1>
-        La opcion de editar campos solo esta disponible SI INICIAN SESION EN
-        SOCIAL
-      </h1>
       <div className="field">
         <label>
           <img

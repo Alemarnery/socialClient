@@ -12,8 +12,6 @@ const Register = () => {
     const { css, name, placeholder, title, type } = input;
     let { validation } = input;
     validation = curateFormValidation(validation);
-    console.log(validation);
-
     return (
       <div className={css} key={index}>
         <label>{title}</label>
