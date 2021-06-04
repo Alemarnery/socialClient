@@ -1,11 +1,9 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import { writeUserData } from "../database/authQueries";
 import history from "../history";
 
-async function getUserData(user) {
-  await writeUserData(user);
-  history.push(`/profile`);
+async function getUserData() {
+  history.push(`/usuarioAutenticado`);
 }
 
 export function sendEmailResetPassword(email) {
@@ -29,8 +27,7 @@ export function googleLogin() {
     .signInWithPopup(provider)
     .then(async (result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      const user = result.user;
-      getUserData(user);
+      getUserData();
     })
     .catch((error) => {
       console.log(error);
@@ -44,8 +41,7 @@ export const facebookLogin = () => {
     .signInWithPopup(provider)
     .then(async (result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      const user = result.user;
-      getUserData(user);
+      getUserData();
     })
     .catch((error) => {
       console.log(error);
@@ -59,8 +55,7 @@ export const twitterLogin = () => {
     .signInWithPopup(provider)
     .then(async (result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      const user = result.user;
-      getUserData(user);
+      getUserData();
     })
     .catch((error) => {
       console.log(error);
@@ -105,8 +100,7 @@ export const isSignInWithEmailLink = () => {
       .signInWithEmailLink(email, window.location.href)
       .then(async (result) => {
         window.localStorage.removeItem("emailForSignIn");
-        const user = result.user;
-        getUserData(user);
+        getUserData();
       })
       .catch((error) => {
         console.log(error);
