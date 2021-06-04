@@ -8,7 +8,7 @@ import { updateUser } from "../../database/authQueries";
 const FormProfile = ({ userValues }) => {
   //A los inputs del formulario Profile les falta el value de la base de datos
   //los nombres de los inputs de la db, no son iguales a los del form de Registro
-  //(PORQUE REGISTRE/LOGIN CON GOOGLE) 
+  //(PORQUE REGISTRE/LOGIN CON GOOGLE)
   const { photoURL } = userValues;
 
   const { register, handleSubmit, errors } = useForm();
@@ -22,10 +22,9 @@ const FormProfile = ({ userValues }) => {
   };
 
   const onSubmit = (data) => {
-    console.log('Submit',data);
+    console.log("Submit", data);
     updateUser(data);
   };
-
 
   const renderedInput = inputFields.fields.map((input, index) => {
     const { css, title, type, name, placeholder } = input;
@@ -52,7 +51,11 @@ const FormProfile = ({ userValues }) => {
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
         <label>
-          <img className="ui centered medium circular image" src={photoURL} />
+          <img
+            alt="User Profile"
+            className="ui centered medium circular image"
+            src={photoURL}
+          />
         </label>
         <input
           type="file"

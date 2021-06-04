@@ -35,17 +35,17 @@ export async function authUser() {
 //Revisar upload image
 export const updateUser = (data) => {
   const { birthDay, email, image, lastName, name, password } = data;
+  const [firstImage] = image;
 
   const userId = firebase.auth().currentUser.uid;
-  const imageName = image[0].name;
+  const imageName = firstImage.name;
 
   // Create a root reference
   const storageRef = firebase.storage().ref();
-  // Upload the file and metadata
-  const imageRef = storageRef.child(`userImage/${userId}/${imageName}`);
 
-  //debo hacer algo con el file, VEEEER
-  imageRef.put(image).then(function (snapshot) {
+  // Upload File
+  const imageRef = storageRef.child(`userImage/${userId}/${imageName}`);
+  imageRef.put(firstImage).then(function (snapshot) {
     console.log("Uploaded a blob or file!");
   });
 };
