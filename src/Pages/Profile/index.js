@@ -14,7 +14,7 @@ const Profile = () => {
       }
     }
     fetchData();
-  });
+  }, []);
 
   if (!userData) {
     return <div>!</div>;

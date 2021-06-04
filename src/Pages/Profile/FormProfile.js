@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
 import inputFields from "../../components/Fields/completedForm.json";
@@ -6,19 +6,18 @@ import { curateFormValidation } from "../../utilities";
 import { updateUser } from "../../database/authQueries";
 
 const FormProfile = ({ userValues }) => {
-  //A los inputs del formulario Profile les falta el value de la base de datos
-  //los nombres de los inputs de la db, no son iguales a los del form de Registro
-  //(PORQUE REGISTRE/LOGIN CON GOOGLE)
-  const { photoURL } = userValues;
-
+  const { photoURL } = userValues; //debo extraer las otras propiedades
+  const [userImage, setUserImage] = useState(photoURL);
   const { register, handleSubmit, errors } = useForm();
 
-  //Este metodo no hace gran cosa
   const handleInputChange = (event) => {
     const target = event.target;
-    //Value and name del input
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
+    if (target.type === "file") {
+      let imageUrl = URL.createObjectURL(target.files[0]);
+      setUserImage(imageUrl);
+    }
+    // const value = target.type === "checkbox" ? target.checked : target.value;
+    // const name = target.name;
   };
 
   const onSubmit = (data) => {
@@ -49,12 +48,16 @@ const FormProfile = ({ userValues }) => {
 
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
+      <h1>
+        La opcion de editar campos solo esta disponible SI INICIAN SESION EN
+        SOCIAL
+      </h1>
       <div className="field">
         <label>
           <img
             alt="User Profile"
-            className="ui centered medium circular image"
-            src={photoURL}
+            className="ui centered medium image"
+            src={userImage}
           />
         </label>
         <input
