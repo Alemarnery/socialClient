@@ -6,6 +6,20 @@ async function getUserData() {
   history.push(`/usuarioAutenticado`);
 }
 
+export const signInWithEmailAndPassword = ({ email, password }) => {
+  const signInResponse = firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(() => {
+      history.push(`/profile`);
+    })
+    .catch((error) => {
+      return error;
+    });
+
+  return signInResponse;
+};
+
 export function sendEmailResetPassword(email) {
   //Enviar Correo
   const auth = firebase.auth();
