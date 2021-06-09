@@ -6,19 +6,21 @@ import { curateFormValidation } from "../../utilities";
 import { updateUser } from "../../database/authQueries";
 
 const FormProfile = ({ userValues }) => {
-  const { photoURL } = userValues; //debo extraer las otras propiedades
+  const { photoURL } = userValues;
   const [userImage, setUserImage] = useState(photoURL);
-
   const { register, handleSubmit, errors } = useForm();
+  const [inputs, setInputs] = useState(userValues);
 
   const handleInputChange = (event) => {
-    const target = event.target;
-    if (target.type === "file") {
-      let imageUrl = URL.createObjectURL(target.files[0]);
+    const { type, name, value, files } = event.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+    if (type === "file") {
+      let imageUrl = URL.createObjectURL(files[0]);
       setUserImage(imageUrl);
     }
-    // const value = target.type === "checkbox" ? target.checked : target.value;
-    // const name = target.name;
   };
 
   const onSubmit = (data) => {
@@ -35,8 +37,9 @@ const FormProfile = ({ userValues }) => {
         <label>{title}</label>
         <input
           name={name}
+          value={inputs[name]}
           placeholder={placeholder}
-          onChange={handleInputChange}
+          onChange={(e) => handleInputChange(e)}
           type={type}
           ref={register(validation)}
         />
