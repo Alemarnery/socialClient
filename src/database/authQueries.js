@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import "firebase/storage";
+import "firebase/firestore";
 
 //BORRAR ESTE METODO
 export function writeUserData(userData) {
@@ -18,7 +19,13 @@ export function writeUserData(userData) {
 }
 
 export async function createUser(data) {
-  const { email, password } = data;
+  const { email, password, birthDay, lastName, name } = data;
+  // Irosshi -
+  // This will return the following object:
+  //   { seconds: XXX, nanoseconds: YYY }
+  // This object has the method .toDate to convert
+  // a Firebase Timestamp to a JavaScript Date object.
+  const firebaseDate = firebase.firestore.Timestamp.fromDate(birthDay);
 
   const userRegister = firebase
     .auth()
@@ -30,7 +37,13 @@ export async function createUser(data) {
       firebase
         .database()
         .ref("users/" + uid)
-        .set(data);
+        .set({
+          email,
+          password,
+          lastName,
+          name,
+          birthDay: firebaseDate,
+        });
 
       firebase.auth().signOut();
       return "User has created";
