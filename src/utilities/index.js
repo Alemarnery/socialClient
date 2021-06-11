@@ -9,3 +9,11 @@ export function curateFormValidation(validation) {
       }
     : validation;
 }
+
+export function zeroBeforeNumber(number) {
+  if (number < 10) {
+    return ("0" + number).slice(-2);
+  }
+
+  return number;
+}

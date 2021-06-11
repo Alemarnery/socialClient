@@ -6,15 +6,15 @@ import { curateFormValidation } from "../../utilities";
 import { updateUser } from "../../database/authQueries";
 
 const FormProfile = ({ userValues }) => {
+  console.log(userValues);
   const { photoURL } = userValues;
-
   const [userImage, setUserImage] = useState(photoURL);
   const { register, handleSubmit, errors } = useForm();
 
   const [inputs, setInputs] = useState(userValues);
 
   const handleInputChange = (event) => {
-    const { type, name, value, files } = event.target;
+    const { name, value, type, files } = event.target;
     setInputs({
       ...inputs,
       [name]: value,

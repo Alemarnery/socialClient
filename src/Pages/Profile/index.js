@@ -10,8 +10,7 @@ const Profile = () => {
     async function fetchData() {
       const userResponse = await authUser();
       if (userResponse !== userData) {
-        console.log(userResponse);
-        //setUserData(userResponse);
+        setUserData(userResponse);
       }
     }
     fetchData();

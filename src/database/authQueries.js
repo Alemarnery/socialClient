@@ -3,6 +3,7 @@ import "firebase/auth";
 import "firebase/database";
 import "firebase/storage";
 import "firebase/firestore";
+import { zeroBeforeNumber } from "../utilities";
 
 //BORRAR ESTE METODO
 export function writeUserData(userData) {
@@ -25,7 +26,6 @@ export async function createUser(data) {
   //   { seconds: XXX, nanoseconds: YYY }
   // This object has the method .toDate to convert
   // a Firebase Timestamp to a JavaScript Date object.
-
   const firebaseDate = firebase.firestore.Timestamp.fromDate(birthDay);
 
   const userRegister = firebase
@@ -57,7 +57,7 @@ export async function createUser(data) {
 
 export async function authUser() {
   const userId = firebase.auth().currentUser.uid;
-  const user = await firebase
+  const data = await firebase
     .database()
     .ref("users/" + userId)
     .get()
@@ -67,11 +67,27 @@ export async function authUser() {
     .catch(function (error) {
       return error;
     });
-  console.log(user.birthDay);
-  // const firebaseDate = firebase.firestore.Timestamp.toDate(user.birthDay);
-  console.log(firebase.firestore.Timestamp.toDate(1622332800));
 
-  return user;
+  const { birthDay, email, lastName, name, password } = data;
+  const fullDate = new Date(birthDay.seconds * 1000); //Milisecons
+
+  console.log(fullDate);
+  console.log("Mes", fullDate.getMonth());
+  console.log("Dia", fullDate.getDate());
+
+  const date = `${fullDate.getFullYear()}-${zeroBeforeNumber(
+    fullDate.getMonth()
+  )}-${zeroBeforeNumber(fullDate.getDate())}`;
+
+  const userData = {
+    email,
+    lastName,
+    name,
+    password,
+    birthDay: date,
+  };
+
+  return userData;
 }
 
 //Revisar upload image
