@@ -12,6 +12,7 @@ export const signInWithEmailAndPassword = ({ email, password }) => {
     .signInWithEmailAndPassword(email, password)
     .then(() => {
       history.push(`/profile`);
+      return "bien";
     })
     .catch((error) => {
       return error;

@@ -10,7 +10,7 @@ const FormLogin = () => {
   const onSubmit = async (data) => {
     const response = await signInWithEmailAndPassword(data);
     console.log(response);
-    //No he manejado la visualizacion de los errores
+    //No he manejado la visualizacion de los errores del backend al servidor
   };
 
   const renderedInput = inputFields.fields.map((input, index) => {

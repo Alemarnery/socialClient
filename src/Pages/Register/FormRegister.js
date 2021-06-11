@@ -11,7 +11,7 @@ const Register = () => {
     console.log("data:", data);
     const response = await createUser(data);
     console.log(response);
-    alert("El usuario se ha creado con exito!!");
+    alert(response);
   };
 
   const renderedInput = inputFields.fields.map((input, index) => {

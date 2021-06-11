@@ -25,6 +25,7 @@ export async function createUser(data) {
   //   { seconds: XXX, nanoseconds: YYY }
   // This object has the method .toDate to convert
   // a Firebase Timestamp to a JavaScript Date object.
+
   const firebaseDate = firebase.firestore.Timestamp.fromDate(birthDay);
 
   const userRegister = firebase
@@ -51,7 +52,6 @@ export async function createUser(data) {
     .catch((error) => {
       return error;
     });
-
   return userRegister;
 }
 
@@ -67,6 +67,9 @@ export async function authUser() {
     .catch(function (error) {
       return error;
     });
+  console.log(user.birthDay);
+  // const firebaseDate = firebase.firestore.Timestamp.toDate(user.birthDay);
+  console.log(firebase.firestore.Timestamp.toDate(1622332800));
 
   return user;
 }

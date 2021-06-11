@@ -7,8 +7,10 @@ import { updateUser } from "../../database/authQueries";
 
 const FormProfile = ({ userValues }) => {
   const { photoURL } = userValues;
+
   const [userImage, setUserImage] = useState(photoURL);
   const { register, handleSubmit, errors } = useForm();
+
   const [inputs, setInputs] = useState(userValues);
 
   const handleInputChange = (event) => {
