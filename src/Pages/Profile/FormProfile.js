@@ -6,9 +6,7 @@ import { curateFormValidation } from "../../utilities";
 import { updateUser } from "../../database/authQueries";
 
 const FormProfile = ({ userValues }) => {
-  console.log(userValues);
-  const { photoURL } = userValues;
-  const [userImage, setUserImage] = useState(photoURL);
+  const [userImage, setUserImage] = useState(userValues.imageURL);
   const { register, handleSubmit, errors } = useForm();
 
   const [inputs, setInputs] = useState(userValues);
@@ -26,7 +24,6 @@ const FormProfile = ({ userValues }) => {
   };
 
   const onSubmit = (data) => {
-    console.log("Submit", data);
     updateUser(data);
   };
 

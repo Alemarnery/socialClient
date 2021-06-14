@@ -68,15 +68,25 @@ export async function authUser() {
       return error;
     });
 
-  const { birthDay, email, lastName, name, password } = data;
+  const { birthDay, email, lastName, name, password, image } = data;
+
+  const storeRef = firebase.storage().ref();
+  const imageURL = await storeRef
+    .child(`userImage/${userId}/${image}`)
+    .getDownloadURL()
+    .then(function (url) {
+      return url;
+    })
+    .catch(function (error) {
+      return error;
+    });
+
   const fullDate = new Date(birthDay.seconds * 1000); //Milisecons
 
-  console.log(fullDate);
-  console.log("Mes", fullDate.getMonth());
-  console.log("Dia", fullDate.getDate());
-
+  //GETMONTH
+  //returns the month (from 0 to 11) for the specified date
   const date = `${fullDate.getFullYear()}-${zeroBeforeNumber(
-    fullDate.getMonth()
+    fullDate.getMonth() + 1
   )}-${zeroBeforeNumber(fullDate.getDate())}`;
 
   const userData = {
@@ -85,25 +95,37 @@ export async function authUser() {
     name,
     password,
     birthDay: date,
+    imageURL,
   };
 
   return userData;
 }
 
-//Revisar upload image
-export const updateUser = (data) => {
+//Update User
+export const updateUser = async (data) => {
   const { birthDay, email, image, lastName, name, password } = data;
   const [firstImage] = image;
 
   const userId = firebase.auth().currentUser.uid;
+
   const imageName = firstImage.name;
+  firebase
+    .storage()
+    .ref()
+    .child(`userImage/${userId}/${imageName}`)
+    .put(firstImage);
 
-  // Create a root reference
-  const storageRef = firebase.storage().ref();
+  const firebaseDate = firebase.firestore.Timestamp.fromDate(birthDay);
 
-  // Upload File
-  const imageRef = storageRef.child(`userImage/${userId}/${imageName}`);
-  imageRef.put(firstImage).then(function (snapshot) {
-    console.log("Uploaded a file!");
-  });
+  return await firebase
+    .database()
+    .ref("users/" + userId)
+    .update({
+      name,
+      password,
+      lastName,
+      birthDay: firebaseDate,
+      email,
+      image: imageName,
+    });
 };

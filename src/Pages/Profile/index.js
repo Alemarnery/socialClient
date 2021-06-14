@@ -9,6 +9,7 @@ const Profile = () => {
   useEffect(() => {
     async function fetchData() {
       const userResponse = await authUser();
+      console.log(userResponse);
       if (userResponse !== userData) {
         setUserData(userResponse);
       }
