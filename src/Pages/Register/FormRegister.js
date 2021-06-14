@@ -4,12 +4,14 @@ import { Message } from "../../components/Form/Message";
 import inputFields from "../../components/Fields/completedForm.json";
 import { curateFormValidation } from "../../utilities";
 import { createUser } from "../../database/authQueries";
+import history from "../../history";
 
 const Register = () => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (data) => {
     const response = await createUser(data);
     alert(response);
+    history.push("/");
   };
 
   const renderedInput = inputFields.fields.map((input, index) => {
