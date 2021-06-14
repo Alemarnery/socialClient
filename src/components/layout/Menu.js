@@ -15,7 +15,7 @@ const Menu = () => {
           Friends
         </a>
         <div className="item">
-          <a className="ui blue button" onClick={signOut}>
+          <a className="ui blue button" href="/login" onClick={signOut}>
             Sign Out
           </a>
         </div>

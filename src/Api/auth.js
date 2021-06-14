@@ -2,8 +2,9 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import history from "../history";
 
-async function getUserData() {
+async function userCreated() {
   history.push(`/usuarioAutenticado`);
+  alert("Usuario Creado con RED SOCIAL y autenticado con exito");
 }
 
 export const signInWithEmailAndPassword = ({ email, password }) => {
@@ -42,7 +43,7 @@ export function googleLogin() {
     .signInWithPopup(provider)
     .then(async (result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      getUserData();
+      userCreated();
     })
     .catch((error) => {
       console.log(error);
@@ -56,7 +57,7 @@ export const facebookLogin = () => {
     .signInWithPopup(provider)
     .then(async (result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      getUserData();
+      userCreated();
     })
     .catch((error) => {
       console.log(error);
@@ -70,7 +71,7 @@ export const twitterLogin = () => {
     .signInWithPopup(provider)
     .then(async (result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      getUserData();
+      userCreated();
     })
     .catch((error) => {
       console.log(error);
@@ -115,7 +116,7 @@ export const isSignInWithEmailLink = () => {
       .signInWithEmailLink(email, window.location.href)
       .then(async (result) => {
         window.localStorage.removeItem("emailForSignIn");
-        getUserData();
+        userCreated();
       })
       .catch((error) => {
         console.log(error);
