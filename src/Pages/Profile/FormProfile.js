@@ -53,15 +53,18 @@ const FormProfile = ({ userValues }) => {
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
         <label>
-          <img
-            alt="User Profile"
-            className="ui centered medium image"
-            src={userImage}
-          />
+          <button>
+            <img
+              alt="User Profile"
+              className="ui centered medium image"
+              src={userImage}
+            />
+          </button>
         </label>
         <input
           type="file"
           name="image"
+          style={{ display: "none" }}
           onChange={handleInputChange}
           ref={register({
             required: "Image is required",
