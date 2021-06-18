@@ -27,6 +27,13 @@ const FormProfile = ({ userValues }) => {
     updateUser(data);
   };
 
+  const hiddenFileInput = React.useRef(null);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    hiddenFileInput.current.click();
+  };
+
   const renderedInput = inputFields.fields.map((input, index) => {
     const { css, title, type, name, placeholder } = input;
     let { validation } = input;
@@ -53,7 +60,7 @@ const FormProfile = ({ userValues }) => {
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
         <label>
-          <button>
+          <button onClick={(e) => handleClick(e)}>
             <img
               alt="User Profile"
               className="ui centered medium image"
@@ -65,14 +72,9 @@ const FormProfile = ({ userValues }) => {
           type="file"
           name="image"
           style={{ display: "none" }}
+          ref={hiddenFileInput}
           onChange={handleInputChange}
-          ref={register({
-            required: "Image is required",
-          })}
         />
-        {errors["image"] && (
-          <Message className="error">{errors["image"].message}</Message>
-        )}
       </div>
 
       {renderedInput}
