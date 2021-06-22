@@ -59,15 +59,9 @@ const FormProfile = ({ userValues }) => {
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
-        <label>
-          <button onClick={(e) => handleClick(e)}>
-            <img
-              alt="User Profile"
-              className="ui centered medium image"
-              src={userImage}
-            />
-          </button>
-        </label>
+        <div className="ui medium image" onClick={(e) => handleClick(e)}>
+          <img alt="User Profile" src={userImage} />
+        </div>
         <input
           type="file"
           name="image"
