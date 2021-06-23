@@ -59,13 +59,16 @@ const FormProfile = ({ userValues }) => {
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
-        <div className="ui medium image" onClick={(e) => handleClick(e)}>
-          <img alt="User Profile" src={userImage} />
-        </div>
+        <img
+          alt="User Profile"
+          src={userImage}
+          className="display-block ui centered medium circular image"
+          onClick={(e) => handleClick(e)}
+        />
         <input
           type="file"
           name="image"
-          style={{ display: "none" }}
+          className="display-none"
           ref={hiddenFileInput}
           onChange={handleInputChange}
         />

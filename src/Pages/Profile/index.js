@@ -24,7 +24,7 @@ const Profile = () => {
   return (
     <Layout title="Profile">
       <div className="ui eight wide card column centered">
-        <Form>
+        <Form title="User Profile">
           <FormProfile userValues={userData} />
         </Form>
       </div>
