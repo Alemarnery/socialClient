@@ -1,27 +1,21 @@
 import React, { useState } from "react";
-import ReactCrop from "react-image-crop";
 import { useForm } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
 import inputFields from "../../components/Fields/completedForm.json";
 import { curateFormValidation } from "../../utilities";
 import { updateUser } from "../../database/authQueries";
+import ImageCropper from "../../components/ImageCropper";
 
 const FormProfile = ({ userValues }) => {
   const { register, handleSubmit, errors } = useForm();
-
-  const [userImage, setUserImage] = useState(userValues.imageURL);
   const [inputs, setInputs] = useState(userValues);
 
   const handleInputChange = (event) => {
-    const { name, value, type, files } = event.target;
+    const { name, value } = event.target;
     setInputs({
       ...inputs,
       [name]: value,
     });
-    if (type === "file") {
-      let imageUrl = URL.createObjectURL(files[0]);
-      setUserImage(imageUrl);
-    }
   };
 
   const onSubmit = (data) => {
@@ -50,29 +44,10 @@ const FormProfile = ({ userValues }) => {
     );
   });
 
-  //Image Logic
-  const hiddenFileInput = React.useRef(null);
-  const handleClick = (e) => {
-    e.preventDefault();
-    hiddenFileInput.current.click();
-  };
-
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
-        <img
-          alt="User Profile"
-          src={userImage}
-          className="display-block ui centered medium circular image"
-          onClick={(e) => handleClick(e)}
-        />
-        <input
-          type="file"
-          name="image"
-          className="display-none"
-          ref={hiddenFileInput}
-          onChange={handleInputChange}
-        />
+        <ImageCropper imageURL={inputs.imageURL} />
       </div>
 
       {renderedInput}
