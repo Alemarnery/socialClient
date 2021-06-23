@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactCrop from "react-image-crop";
 import { useForm } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
 import inputFields from "../../components/Fields/completedForm.json";
@@ -6,9 +7,9 @@ import { curateFormValidation } from "../../utilities";
 import { updateUser } from "../../database/authQueries";
 
 const FormProfile = ({ userValues }) => {
-  const [userImage, setUserImage] = useState(userValues.imageURL);
   const { register, handleSubmit, errors } = useForm();
 
+  const [userImage, setUserImage] = useState(userValues.imageURL);
   const [inputs, setInputs] = useState(userValues);
 
   const handleInputChange = (event) => {
@@ -25,13 +26,6 @@ const FormProfile = ({ userValues }) => {
 
   const onSubmit = (data) => {
     updateUser(data);
-  };
-
-  const hiddenFileInput = React.useRef(null);
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    hiddenFileInput.current.click();
   };
 
   const renderedInput = inputFields.fields.map((input, index) => {
@@ -55,6 +49,13 @@ const FormProfile = ({ userValues }) => {
       </div>
     );
   });
+
+  //Image Logic
+  const hiddenFileInput = React.useRef(null);
+  const handleClick = (e) => {
+    e.preventDefault();
+    hiddenFileInput.current.click();
+  };
 
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
