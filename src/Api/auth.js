@@ -11,9 +11,10 @@ export const signInWithEmailAndPassword = ({ email, password }) => {
   const signInResponse = firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(() => {
+    .then((userCredential) => {
+      localStorage.setItem("userId", userCredential.user.uid);
       history.push(`/profile`);
-      return "bien";
+      return "Authenticated";
     })
     .catch((error) => {
       return error;
@@ -134,4 +135,6 @@ export function signOut() {
     .catch((error) => {
       console.log(error);
     });
+
+  localStorage.clear();
 }

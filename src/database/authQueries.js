@@ -56,7 +56,7 @@ export async function createUser(data) {
 }
 
 export async function authUser() {
-  const userId = firebase.auth().currentUser.uid;
+  const userId = localStorage.getItem("userId");
   const data = await firebase
     .database()
     .ref("users/" + userId)
@@ -106,7 +106,7 @@ export const updateUser = async (data) => {
   const { birthDay, email, image, lastName, name, password } = data;
   const [firstImage] = image;
 
-  const userId = firebase.auth().currentUser.uid;
+  const userId = localStorage.getItem("userId");
 
   const imageName = firstImage.name;
   firebase

@@ -23,7 +23,7 @@ const Profile = () => {
 
   return (
     <Layout title="Profile">
-      <div className="ui eight wide card column centered">
+      <div className="ui five wide card column centered">
         <Form title="User Profile">
           <FormProfile userValues={userData} />
         </Form>
