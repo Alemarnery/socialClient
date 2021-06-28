@@ -9,6 +9,7 @@ import ImageCropper from "../../components/ImageCropper";
 const FormProfile = ({ userValues }) => {
   const { register, handleSubmit, errors } = useForm();
   const [inputs, setInputs] = useState(userValues);
+  const [croppedImage, setCroppedImage] = useState(null);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -19,7 +20,8 @@ const FormProfile = ({ userValues }) => {
   };
 
   const onSubmit = (data) => {
-    updateUser(data);
+    console.log(croppedImage);
+    updateUser({ ...data, image: croppedImage });
   };
 
   const renderedInput = inputFields.fields.map((input, index) => {
@@ -47,7 +49,10 @@ const FormProfile = ({ userValues }) => {
   return (
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
-        <ImageCropper imageURL={inputs.imageURL} />
+        <ImageCropper
+          imageUrl={inputs.imageURL}
+          onImageCropped={(image) => setCroppedImage(image)}
+        />
       </div>
 
       {renderedInput}

@@ -1,85 +1,135 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
-const ImageCropper = ({ imageURL }) => {
-  const [userImage, setUserImage] = useState(imageURL);
-  const hiddenFileInput = useRef(null);
+const ImageCropper = ({ imageUrl, onImageCropped }) => {
+  const imageRef = useRef(null);
+  const inputRef = useRef(null);
+  const [isCropping, setIsCropping] = useState(false);
+  const [imageSrc, setImageSrc] = useState(null);
+  const [croppedImageUrl, setCroppedImageUrl] = useState(null);
   const [crop, setCrop] = useState({
-    unit: "%",
-    disabled: false,
-    locked: false,
-    aspect: 16 / 9,
-    width: 50,
-    minWidth: 30,
+    unit: "px",
+    x: 0,
+    y: 0,
+    width: 100,
+    height: 100,
   });
 
-  const handleClick = (e) => {
+  /*
+   * Preview Image Methods
+   */
+  const onImageClick = (e) => {
     e.preventDefault();
-    hiddenFileInput.current.click();
+    inputRef.current.click();
   };
 
-  const handleInputChange = (event) => {
-    const { files } = event.target;
-    setUserImage(URL.createObjectURL(files[0]));
+  /*
+   * Input Methods
+   */
+  const onSelectFile = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => setImageSrc(reader.result));
+      reader.readAsDataURL(e.target.files[0]);
+      setIsCropping(true);
+    }
   };
 
-  //Funcion para obtener la imagen cortada. ME DA ERROR
+  /*
+   * ReactCrop Methods
+   */
+  const onImageLoaded = (image) => {
+    // console.log("onImageLoaded:", image);
+    imageRef.current = image;
+  };
+  const onCropComplete = (crop) => {
+    // console.log("onCropComplete:", crop);
+    makeClientCrop(crop);
+  };
+  const onCropChange = (crop) => {
+    // console.log("onCropChange:", crop);
+    setCrop(crop);
+  };
 
-  //   function getCroppedImg() {
-  //     const canvas = document.createElement("canvas");
+  /*
+   * Util Methods
+   */
+  const makeClientCrop = async (crop) => {
+    if (imageRef && imageRef.current && crop.width && crop.height) {
+      const croppedImageUrl = await getCroppedImg(
+        imageRef.current,
+        crop,
+        "newFile.jpeg"
+      );
+      setCroppedImageUrl(croppedImageUrl);
+    }
+  };
+  const getCroppedImg = (image, crop, fileName) => {
+    const canvas = document.createElement("canvas");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext("2d");
 
-  //     const scaleX = image.naturalWidth / image.width;
-  //     const scaleY = image.naturalHeight / image.height;
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
 
-  //     canvas.width = crop.width;
-  //     canvas.height = crop.height;
-  //     const ctx = canvas.getContext("2d");
-
-  //     ctx.drawImage(
-  //       image,
-  //       crop.x * scaleX,
-  //       crop.y * scaleY,
-  //       crop.width * scaleX,
-  //       crop.height * scaleY,
-  //       0,
-  //       0,
-  //       crop.width,
-  //       crop.height
-  //     );
-  //     const base64Image = canvas.toDataURL("image/jpeg");
-  //     setUserImage(base64Image);
-  //   }
-
-  const cropOnChange = (e) => {
-    console.log("crop", e);
-    setCrop(e);
+    // As Base64 string
+    const base64Image = canvas.toDataURL("image/jpeg");
+    return base64Image;
   };
 
   return (
     <>
-      <img
-        alt="User Profile"
-        src={userImage}
-        className="display-block ui centered medium circular image"
-        onClick={(e) => handleClick(e)}
-      />
-      <input
-        type="file"
-        name="image"
-        className="display-none"
-        ref={hiddenFileInput}
-        onChange={handleInputChange}
-      />
-
       <div>
-        <ReactCrop
-          src={userImage}
-          onChange={(e) => cropOnChange(e)}
-          crop={crop}
+        {!isCropping && (
+          <img
+            alt="User Profile"
+            style={{ maxWidth: "100%" }}
+            src={croppedImageUrl || imageUrl}
+            className="display-block ui centered medium circular image"
+            onClick={onImageClick}
+          />
+        )}
+        <input
+          type="file"
+          ref={inputRef}
+          className="display-none"
+          accept="image/*"
+          onChange={onSelectFile}
         />
-        <a onClick={getCroppedImg}>Crop</a>
       </div>
+      {isCropping && imageSrc && (
+        <>
+          <ReactCrop
+            src={imageSrc}
+            crop={crop}
+            circularCrop
+            onImageLoaded={onImageLoaded}
+            onComplete={onCropComplete}
+            onChange={onCropChange}
+          />
+          <a
+            onClick={() => {
+              setIsCropping(false);
+              onImageCropped(croppedImageUrl);
+            }}
+          >
+            Crop Image!
+          </a>
+        </>
+      )}
     </>
   );
 };
