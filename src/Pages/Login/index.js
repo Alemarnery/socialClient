@@ -2,8 +2,10 @@ import React from "react";
 import Form from "../../components/Form";
 import SocialButtons from "./SocialButtons";
 import FormLogin from "./FormLogin";
+import { solution } from "../../utilities/index";
 
 const Login = () => {
+  solution();
   return (
     <div className="ui middle aligned two column centered grid">
       <div className="ui card column">
