@@ -18,12 +18,11 @@ const firebaseConfig = {
 
 //Firebase
 firebase.initializeApp(firebaseConfig);
-
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    console.log("user is sing");
+    alert("user is sing");
   } else {
-    console.log("No user is signed in");
+    alert("No user is signed in");
   }
 });
 

@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
-const ImageCropper = ({ imageUrl, onImageCropped }) => {
+const ImageCropper = ({ imageUrl, onImageChange, onImageCropped }) => {
   const imageRef = useRef(null);
   const inputRef = useRef(null);
   const [isCropping, setIsCropping] = useState(false);
@@ -32,6 +32,7 @@ const ImageCropper = ({ imageUrl, onImageCropped }) => {
       const reader = new FileReader();
       reader.addEventListener("load", () => setImageSrc(reader.result));
       reader.readAsDataURL(e.target.files[0]);
+      // onImageChange();
       setIsCropping(true);
     }
   };

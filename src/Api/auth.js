@@ -26,7 +26,6 @@ export const signInWithEmailAndPassword = ({ email, password }) => {
 export function sendEmailResetPassword(email) {
   //Enviar Correo
   const auth = firebase.auth();
-
   auth
     .sendPasswordResetEmail(email)
     .then(function () {

@@ -7,7 +7,8 @@ import { updateUser } from "../../database/authQueries";
 import ImageCropper from "../../components/ImageCropper";
 
 const FormProfile = ({ userValues }) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, formState } = useForm();
+  const { isDirty } = formState;
   const [inputs, setInputs] = useState(userValues);
   const [croppedImage, setCroppedImage] = useState(null);
 
@@ -20,7 +21,6 @@ const FormProfile = ({ userValues }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(croppedImage);
     updateUser({ ...data, image: croppedImage });
   };
 
@@ -51,13 +51,18 @@ const FormProfile = ({ userValues }) => {
       <div className="field">
         <ImageCropper
           imageUrl={inputs.imageURL}
+          // onImageChange={() => setCroppedImage(null)}
           onImageCropped={(image) => setCroppedImage(image)}
         />
       </div>
 
       {renderedInput}
 
-      <button className="fluid ui blue button" type="submit">
+      <button
+        disabled={!isDirty}
+        className="fluid ui blue button"
+        type="submit"
+      >
         Submit
       </button>
     </form>

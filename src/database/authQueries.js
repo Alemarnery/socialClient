@@ -68,11 +68,14 @@ export async function authUser() {
       return error;
     });
 
-  const { birthDay, email, lastName, name, password, image } = data;
+  const { birthDay, email, lastName, name, password } = data;
 
-  const storeRef = firebase.storage().ref();
+  const storeRef = firebase
+    .storage()
+    .ref()
+    .child(`userImage/${userId}/profileImage.jpg`);
+
   const imageURL = await storeRef
-    .child(`userImage/${userId}/${image}`)
     .getDownloadURL()
     .then(function (url) {
       return url;
@@ -104,16 +107,15 @@ export async function authUser() {
 //Update User
 export const updateUser = async (data) => {
   const { birthDay, email, image, lastName, name, password } = data;
-  const [firstImage] = image;
-
   const userId = localStorage.getItem("userId");
 
-  const imageName = firstImage.name;
-  firebase
+  const ref = firebase
     .storage()
     .ref()
-    .child(`userImage/${userId}/${imageName}`)
-    .put(firstImage);
+    .child(`userImage/${userId}/profileImage.jpg`);
+
+  // Base64 formatted string
+  ref.putString(image, "data_url", { contentType: "image/jpg" });
 
   const firebaseDate = firebase.firestore.Timestamp.fromDate(birthDay);
 
@@ -126,6 +128,5 @@ export const updateUser = async (data) => {
       lastName,
       birthDay: firebaseDate,
       email,
-      image: imageName,
     });
 };
