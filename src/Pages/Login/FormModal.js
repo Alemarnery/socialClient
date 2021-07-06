@@ -5,7 +5,11 @@ import inputFields from "../../components/Fields/Email.json";
 import { curateFormValidation } from "../../utilities";
 
 const FormModal = ({ onSubmit }) => {
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
   const renderedInput = inputFields.fields.map((input, index) => {
     const { name, placeholder, title, type } = input;
@@ -18,7 +22,7 @@ const FormModal = ({ onSubmit }) => {
           type={type}
           name={name}
           placeholder={placeholder}
-          ref={register(validation)}
+          {...register(name, validation)}
         />
         {errors[name] && (
           <Message className="error">{errors[name].message}</Message>

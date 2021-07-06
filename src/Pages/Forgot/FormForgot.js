@@ -6,9 +6,14 @@ import { curateFormValidation } from "../../utilities";
 import { sendEmailResetPassword } from "../../Api/auth";
 
 const Forgot = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const [submitForm, setSubmitForm] = useState(false);
 
-  const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {
     setSubmitForm(true);
     const { email } = data;
@@ -27,7 +32,7 @@ const Forgot = () => {
           type={type}
           name={name}
           placeholder={placeholder}
-          ref={register(validation)}
+          {...register(name, validation)}
         />
         {errors[name] && (
           <Message className="error">{errors[name].message}</Message>

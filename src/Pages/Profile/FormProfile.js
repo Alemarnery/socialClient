@@ -7,8 +7,13 @@ import { updateUser } from "../../database/authQueries";
 import ImageCropper from "../../components/ImageCropper";
 
 const FormProfile = ({ userValues }) => {
-  const { register, handleSubmit, errors, formState } = useForm();
-  const { isDirty } = formState;
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
+  //const { isDirty } = formState;
   const [inputs, setInputs] = useState(userValues);
   const [croppedImage, setCroppedImage] = useState(null);
 
@@ -37,7 +42,7 @@ const FormProfile = ({ userValues }) => {
           placeholder={placeholder}
           onChange={(e) => handleInputChange(e)}
           type={type}
-          ref={register(validation)}
+          {...register(name, validation)}
         />
         {errors[name] && (
           <Message className="error">{errors[name].message}</Message>
@@ -59,7 +64,7 @@ const FormProfile = ({ userValues }) => {
       {renderedInput}
 
       <button
-        disabled={!isDirty}
+        //disabled={!isDirty}
         className="fluid ui blue button"
         type="submit"
       >

@@ -7,7 +7,12 @@ import { createUser } from "../../database/authQueries";
 import history from "../../history";
 
 const Register = () => {
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const onSubmit = async (data) => {
     const response = await createUser(data);
     alert(response);
@@ -25,7 +30,7 @@ const Register = () => {
           type={type}
           name={name}
           placeholder={placeholder}
-          ref={register(validation)}
+          {...register(name, validation)}
         />
         {errors[name] && (
           <Message className="error">{errors[name].message}</Message>

@@ -6,9 +6,15 @@ import { curateFormValidation } from "../../utilities";
 import { signInWithEmailAndPassword } from "../../Api/auth";
 
 const FormLogin = () => {
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
   const onSubmit = async (data) => {
     const response = await signInWithEmailAndPassword(data);
+    alert("Visualizacion de los errores!!");
     console.log(response); //No he manejado la visualizacion de los errores del backend al servidor
   };
 
@@ -25,7 +31,7 @@ const FormLogin = () => {
           name={name}
           placeholder={placeholder}
           type={type}
-          ref={register(validation)}
+          {...register(name, validation)}
         />
         {errors[name] && (
           <Message className="error">{errors[name].message}</Message>
