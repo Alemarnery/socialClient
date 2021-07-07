@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFormState } from "react-hook-form";
 import { Message } from "../../components/Form/Message";
 import inputFields from "../../components/Fields/completedForm.json";
 import { curateFormValidation } from "../../utilities";
@@ -11,19 +11,13 @@ const FormProfile = ({ userValues }) => {
     register,
     formState: { errors },
     handleSubmit,
+    control,
   } = useForm();
 
-  //const { isDirty } = formState;
-  const [inputs, setInputs] = useState(userValues);
+  const { isDirty } = useFormState({
+    control,
+  });
   const [croppedImage, setCroppedImage] = useState(null);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  };
 
   const onSubmit = (data) => {
     updateUser({ ...data, image: croppedImage });
@@ -38,9 +32,8 @@ const FormProfile = ({ userValues }) => {
         <label>{title}</label>
         <input
           name={name}
-          value={inputs[name]}
+          defaultValue={userValues[name]}
           placeholder={placeholder}
-          onChange={(e) => handleInputChange(e)}
           type={type}
           {...register(name, validation)}
         />
@@ -55,16 +48,19 @@ const FormProfile = ({ userValues }) => {
     <form className="ui form error" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
         <ImageCropper
-          imageUrl={inputs.imageURL}
-          // onImageChange={() => setCroppedImage(null)}
+          imageUrl={userValues.imageURL}
+          onImageChange={() => setCroppedImage(null)}
           onImageCropped={(image) => setCroppedImage(image)}
+          {...register("imageInput")}
         />
       </div>
 
       {renderedInput}
 
       <button
-        //disabled={!isDirty}
+        // TODO:
+        // We have to set the condition with isDirty and croppedImage
+        disabled={false}
         className="fluid ui blue button"
         type="submit"
       >
